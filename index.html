@@ -1,0 +1,218 @@
+<!doctype html>
+<!-- Ask Theo Shell v0.1.11 - Noted by Theo - 2026-06-04 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Minimal Ask Theo chat shell with clean mobile chat controls and optional references."
+    />
+    <title>Ask Theo Shell</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell" aria-label="Ask Theo chat shell">
+      <aside class="rail" aria-label="Research navigation">
+        <div class="brand-lockup">
+          <div class="mark" aria-hidden="true">AT</div>
+          <div>
+            <p class="eyebrow">Ascending Research AI</p>
+            <h1>Ask Theo</h1>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Workspace sections">
+          <button class="nav-item active" type="button">Chat</button>
+          <button class="nav-item" type="button">Notebook</button>
+          <button class="nav-item" type="button">Sources</button>
+          <button class="nav-item" type="button">Lab / COA</button>
+        </nav>
+
+        <section class="status-panel" aria-label="Chat status">
+          <div>
+            <span class="label">Answer</span>
+            <strong id="providerStatus">Live Theo · GLM Auto</strong>
+          </div>
+          <div>
+            <span class="label">Mode</span>
+            <strong id="modeStatus">Quick Ask</strong>
+          </div>
+          <div>
+            <span class="label">References</span>
+            <strong id="sourceStatus">references optional</strong>
+          </div>
+        </section>
+      </aside>
+
+      <section class="chat" aria-label="Conversation">
+        <header class="topbar">
+          <div class="chat-title-row">
+            <div class="top-avatar" aria-hidden="true">T</div>
+            <div class="chat-title-copy">
+              <h2>Ask Theo</h2>
+              <span>research chat</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="thread" id="thread" aria-live="polite" aria-label="Messages">
+          <article class="message theo">
+            <div class="avatar" aria-hidden="true">T</div>
+            <div class="bubble">
+              <p class="speaker">Theo</p>
+              <p>
+                Ask me about a compound, study, COA, lab marker, or source claim. I will separate
+                formal evidence from community reports, flag safety-sensitive questions, and say when
+                sources need a refresh.
+              </p>
+              <div class="message-actions">
+                <button
+                  class="voice-button"
+                  type="button"
+                  data-voice-text="Ask%20me%20about%20a%20compound%2C%20study%2C%20COA%2C%20lab%20marker%2C%20or%20source%20claim.%20I%20will%20separate%20formal%20evidence%20from%20community%20reports%2C%20flag%20safety-sensitive%20questions%2C%20and%20say%20when%20sources%20need%20a%20refresh."
+                >
+                  Listen
+                </button>
+              </div>
+              <div class="starter-grid" aria-label="Sample questions">
+                <button type="button" data-example="retatrutide">Retatrutide overview</button>
+                <button type="button" data-example="gate">Safety-sensitive question</button>
+                <button type="button" data-example="stale">Check current user reports</button>
+                <button type="button" data-example="missing">Verify a COA or source</button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <form class="composer" id="composer" aria-label="Ask Theo composer">
+          <label class="sr-only" for="promptInput">Message Theo</label>
+          <button
+            class="icon-button"
+            id="toolButton"
+            type="button"
+            aria-label="Open tools"
+            aria-controls="toolSheet"
+            aria-expanded="false"
+          >
+            <span class="icon-bars" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <textarea
+            id="promptInput"
+            rows="1"
+            placeholder="Ask about evidence, user reports, a COA, or lab context..."
+          ></textarea>
+          <button class="send-button" type="submit">Send</button>
+        </form>
+
+        <section class="tool-sheet" id="toolSheet" aria-label="Ask Theo tools" hidden>
+          <div class="tool-sheet-header">
+            <div>
+              <strong>Theo commands</strong>
+              <p>Tell Theo what to run.</p>
+            </div>
+            <button class="sheet-close" type="button" data-close-tools aria-label="Close tools">Close</button>
+          </div>
+          <span class="voice-pill" id="voiceStatus">Voice: Christopher</span>
+          <div class="tool-group" aria-label="Quick commands">
+            <span class="tool-label">Commands</span>
+            <div class="command-grid">
+              <button class="command-button primary" type="button" data-tool-command="ask_theo" data-command-mode="quick" data-command-prompt="What can Theo help me research?">
+                <span>Ask Theo</span>
+                <small>normal chat</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="deep_research" data-command-mode="deep" data-command-prompt="Give me a deep research answer about ">
+                <span>Deep Research</span>
+                <small>fuller evidence</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="risk_check" data-command-mode="risk" data-command-prompt="Run a risk check on ">
+                <span>Risk Check</span>
+                <small>safety gaps</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="source_hunt" data-command-mode="source" data-command-prompt="Run Source Hunt for ">
+                <span>Source Hunt</span>
+                <small>pull sources</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="analyze_file_image" data-command-mode="lab" data-command-prompt="Analyze File / Image">
+                <span>Analyze File / Image</span>
+                <small>upload lane</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="bloodwork_read" data-command-mode="lab" data-command-prompt="Look at my bloodwork PDF">
+                <span>Read Bloodwork</span>
+                <small>PDF/photo</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="coa_read" data-command-mode="lab" data-command-prompt="Read this COA">
+                <span>Check COA</span>
+                <small>certificate</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="compare_compounds" data-command-mode="deep" data-command-prompt="Compare compounds">
+                <span>Compare</span>
+                <small>evidence map</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="dilution_calculator" data-command-mode="risk" data-command-prompt="Calculate a dilution">
+                <span>Dilution Calc</span>
+                <small>guarded math</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="notebook_save" data-command-mode="quick" data-command-prompt="Save this as a note">
+                <span>Save Note</span>
+                <small>notebook</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="journal_entry" data-command-mode="quick" data-command-prompt="New journal entry">
+                <span>Journal Entry</span>
+                <small>daily log</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="injection_site_rotator" data-command-mode="quick" data-command-prompt="Where did I inject last?">
+                <span>Site Rotator</span>
+                <small>history</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="progress_photo" data-command-mode="lab" data-command-prompt="Add a progress photo">
+                <span>Progress Photo</span>
+                <small>visual log</small>
+              </button>
+              <button class="command-button" type="button" data-tool-command="library_search" data-command-mode="source" data-command-prompt="Search the research library for ">
+                <span>Library</span>
+                <small>saved sources</small>
+              </button>
+            </div>
+          </div>
+          <div class="tool-group" aria-label="Ask Theo modes">
+            <span class="tool-label">Answer mode</span>
+            <div class="mode-strip">
+              <button class="chip active" type="button" data-mode="quick">Quick Ask</button>
+              <button class="chip" type="button" data-mode="deep">Deep Research</button>
+              <button class="chip" type="button" data-mode="risk">Risk Check</button>
+              <button class="chip" type="button" data-mode="source">Source Hunt</button>
+              <button class="chip" type="button" data-mode="lab">Lab / COA</button>
+            </div>
+          </div>
+          <details class="tool-advanced">
+            <summary>Advanced lane controls</summary>
+          <div class="tool-group" aria-label="Answer lane">
+            <span class="tool-label">Answer</span>
+            <div class="provider-toggle">
+              <button class="toggle active" type="button" data-provider="sandbox_live">Live Theo</button>
+              <button class="toggle" type="button" data-provider="mock">Demo</button>
+              <button class="toggle" type="button" data-provider="retatrutide_seeded">Retatrutide example</button>
+            </div>
+          </div>
+          <div class="tool-group" aria-label="Live model">
+            <span class="tool-label">Model</span>
+            <div class="model-toggle">
+              <button class="model-chip active" type="button" data-live-model="glm">GLM Auto</button>
+              <button class="model-chip" type="button" data-live-model="gemini">Gemini</button>
+              <button class="model-chip" type="button" data-live-model="groq">Groq</button>
+            </div>
+          </div>
+          </details>
+        </section>
+      </section>
+    </main>
+
+    <script src="./config.js"></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
